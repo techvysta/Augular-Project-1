@@ -1,6 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { IRole } from '../../model/interface/role';
+
 @Component({
   selector: 'app-roles',
   standalone: true,
@@ -11,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 
 export class RolesComponent implements OnInit{
 
+  roleList: IRole[] = [];
   http = inject(HttpClient);
 
 //constructor(private http: httpClient){
@@ -24,8 +28,12 @@ ngOnInit(): void {
 
 
 getAllRoles(){
- this.http.get("https://freeapi.miniprojectideas.com/api/ClientStrive/GetAllRoles")
+ this.http.get("https://freeapi.miniprojectideas.com/api/ClientStrive/GetAllRoles").subscribe((res:any)=>{
+ this.roleList = res.data;
+ })
+ 
 }
+
 
 
 
